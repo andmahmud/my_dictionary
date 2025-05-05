@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_dictionary/Favorite.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:io' show exit;
@@ -8,8 +7,10 @@ class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
 
   // Replace these with your actual links
-  final String appUrl = "https://play.google.com/store/apps/details?id=com.example.my_dictionary";
-  final String moreAppsUrl = "https://play.google.com/store/apps/developer?id=YourDeveloperID";
+  final String appUrl =
+      "https://play.google.com/store/apps/details?id=com.example.my_dictionary";
+  final String moreAppsUrl =
+      "https://play.google.com/store/apps/developer?id=YourDeveloperID";
   final String privacyPolicyUrl = "https://your-privacy-policy-link.com";
 
   void _launchURL(String url) async {
@@ -53,24 +54,34 @@ class CustomDrawer extends StatelessWidget {
       child: Column(
         children: <Widget>[
           DrawerHeader(
-            decoration: const BoxDecoration(color: Colors.blue),
-            child: Column(
-              children: [
-                const SizedBox(height: 4),
-                CircleAvatar(
-                  radius: 40,
-                  backgroundImage: AssetImage('assets/images/icon.png'),
-                ),
-                const SizedBox(height: 10),
-                const Text(
-                  'My Dictionary',
-                  style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                const Text(
-                  'Build your vocabulary!',
-                  style: TextStyle(color: Colors.white, fontSize: 14),
-                ),
-              ],
+            decoration: const BoxDecoration(
+              color: Colors.blue, 
+            ),
+            margin: EdgeInsets.zero, 
+            padding: EdgeInsets.zero, 
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircleAvatar(
+                    radius: 40,
+                    backgroundImage: AssetImage('assets/images/icon.png'),
+                  ),
+                  const SizedBox(height: 10),
+                  const Text(
+                    'My Dictionary',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const Text(
+                    'Build your vocabulary!',
+                    style: TextStyle(color: Colors.white, fontSize: 14),
+                  ),
+                ],
+              ),
             ),
           ),
 

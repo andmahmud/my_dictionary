@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:share/share.dart';
+// import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:io' show exit;
 
@@ -22,9 +22,9 @@ class CustomDrawer extends StatelessWidget {
     }
   }
 
-  void _shareApp() {
-    Share.share("Check out My Dictionary App: $appUrl");
-  }
+  // void _shareApp() {
+  //   Share.share("Check out My Dictionary App: $appUrl");
+  // }
 
   void _exitApp(BuildContext context) {
     showDialog(
@@ -54,11 +54,9 @@ class CustomDrawer extends StatelessWidget {
       child: Column(
         children: <Widget>[
           DrawerHeader(
-            decoration: const BoxDecoration(
-              color: Colors.blue, 
-            ),
-            margin: EdgeInsets.zero, 
-            padding: EdgeInsets.zero, 
+            decoration: const BoxDecoration(color: Colors.blue),
+            margin: EdgeInsets.zero,
+            padding: EdgeInsets.zero,
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -111,11 +109,11 @@ class CustomDrawer extends StatelessWidget {
             onTap: () => _launchURL(moreAppsUrl),
           ),
 
-          _buildDrawerItem(
-            icon: Icons.share,
-            text: "Share App",
-            onTap: _shareApp,
-          ),
+          // _buildDrawerItem(
+          //   icon: Icons.share,
+          //   text: "Share App",
+          //   onTap: _shareApp,
+          // ),
 
           const Divider(),
 

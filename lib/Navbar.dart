@@ -6,7 +6,6 @@ import 'package:my_dictionary/homepage.dart';
 import 'package:my_dictionary/word_storage_service.dart';
 import 'package:my_dictionary/word.dart';
 
-
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
 
@@ -48,14 +47,9 @@ class _HomescreenState extends State<Homepage> {
     final List<Widget> _pages = [
       const HomeScreen(),
       FavoritesScreen(favoriteWords: _favoriteWords),
-     
     ];
 
-    final List<String> _titles = [
-      "My Dictionary",
-      "Favorite Words",
-      
-    ];
+    final List<String> _titles = ["My Dictionary", "Favorite Words"];
 
     return Scaffold(
       appBar: AppBar(
@@ -73,7 +67,6 @@ class _HomescreenState extends State<Homepage> {
             icon: Icon(Icons.favorite),
             label: 'Favorites',
           ),
-         
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.white,

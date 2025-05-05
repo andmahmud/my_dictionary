@@ -36,34 +36,46 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-   
-      body: widget.favoriteWords.isEmpty
-          ? const Center(child: Text("No favorite words to display."))
-          : ListView.builder(
-              itemCount: widget.favoriteWords.length,
-              itemBuilder: (context, index) {
-                final word = widget.favoriteWords[index];
-                return Card(
-                  margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  child: ListTile(
-                    title: Text("${word.text} = ${word.bangla}"),  // Corrected to use 'text' instead of 'english'
-                    trailing: PopupMenuButton<String>(
-                      onSelected: (value) {
-                        if (value == 'delete') {
-                          deleteWord(index);
-                        } else if (value == 'favorite') {
-                          toggleFavorite(index);
-                        }
-                      },
-                      itemBuilder: (BuildContext context) => [
-                        const PopupMenuItem(value: 'delete', child: Text('Delete')),
-                        const PopupMenuItem(value: 'favorite', child: Text('Unfavorite')),
-                      ],
+      body:
+          widget.favoriteWords.isEmpty
+              ? const Center(child: Text("No favorite words to display."))
+              : ListView.builder(
+                itemCount: widget.favoriteWords.length,
+                itemBuilder: (context, index) {
+                  final word = widget.favoriteWords[index];
+                  return Card(
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 6,
                     ),
-                  ),
-                );
-              },
-            ),
+                    child: ListTile(
+                      title: Text(
+                        "${word.text} = ${word.bangla}",
+                      ), // Corrected to use 'text' instead of 'english'
+                      trailing: PopupMenuButton<String>(
+                        onSelected: (value) {
+                          if (value == 'delete') {
+                            deleteWord(index);
+                          } else if (value == 'favorite') {
+                            toggleFavorite(index);
+                          }
+                        },
+                        itemBuilder:
+                            (BuildContext context) => [
+                              const PopupMenuItem(
+                                value: 'delete',
+                                child: Text('Delete'),
+                              ),
+                              const PopupMenuItem(
+                                value: 'favorite',
+                                child: Text('Unfavorite'),
+                              ),
+                            ],
+                      ),
+                    ),
+                  );
+                },
+              ),
     );
   }
 }

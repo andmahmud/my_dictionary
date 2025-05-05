@@ -7,11 +7,7 @@ class Word {
 
   // Method to convert Word to map (for saving in SharedPreferences)
   Map<String, dynamic> toMap() {
-    return {
-      'text': text,
-      'bangla': bangla,
-      'isFavorite': isFavorite,
-    };
+    return {'text': text, 'bangla': bangla, 'isFavorite': isFavorite};
   }
 
   // Method to convert map to Word (for loading from SharedPreferences)

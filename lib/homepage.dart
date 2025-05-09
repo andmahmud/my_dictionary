@@ -63,11 +63,11 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 TextField(
                   controller: englishController,
-                  decoration: const InputDecoration(labelText: 'English Word'),
+                  decoration: const InputDecoration(labelText: 'First Word'),
                 ),
                 TextField(
                   controller: banglaController,
-                  decoration: const InputDecoration(labelText: 'Bangla Word'),
+                  decoration: const InputDecoration(labelText: 'Sceond Word'),
                 ),
               ],
             ),
@@ -94,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         isFavorite: word.isFavorite,
                       );
                     }
-                    _filterWords(); // Reapply filter after adding/editing
+                    _filterWords(); 
                   });
                   saveWords();
                 },
@@ -108,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void toggleFavorite(int index) {
     setState(() {
       words[index].isFavorite = !words[index].isFavorite;
-      _filterWords(); // Reapply filter after favoriting/unfavoriting
+      _filterWords(); 
     });
     saveWords();
   }
@@ -116,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void deleteWord(int index) {
     setState(() {
       words.removeAt(index);
-      _filterWords(); // Reapply filter after deletion
+      _filterWords(); 
     });
     saveWords();
   }
@@ -147,7 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Column(
         children: [
-          // Favorites Toggle
+          
           Row(
             children: [
               Checkbox(
@@ -155,14 +155,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 onChanged: (value) {
                   setState(() {
                     showFavoritesOnly = value!;
-                    _filterWords(); // Reapply filter when toggling favorites
+                    _filterWords(); 
                   });
                 },
               ),
               const Text("Show Favorites Only"),
             ],
           ),
-          // Display words
+         
           Expanded(
             child:
                 filteredWords.isEmpty

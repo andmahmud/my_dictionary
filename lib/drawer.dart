@@ -6,7 +6,7 @@ import 'dart:io' show exit;
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
 
-  // Replace these with your actual links
+  
   final String appUrl =
       "https://play.google.com/store/apps/details?id=com.example.my_dictionary";
   final String moreAppsUrl =

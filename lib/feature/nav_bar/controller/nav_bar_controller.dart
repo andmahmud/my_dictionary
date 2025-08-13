@@ -25,4 +25,6 @@ class NavBarController extends GetxController {
     }
     selectedIndex.value = index;
   }
+
+  
 }

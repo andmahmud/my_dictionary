@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:my_dictionary/core/utils/common_widget/custom_text.dart';
+import 'package:my_dictionary/core/utils/constent/app_color.dart';
+import 'package:my_dictionary/core/utils/constent/app_sizer.dart';
 // import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:io' show exit;
@@ -6,7 +9,6 @@ import 'dart:io' show exit;
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
 
-  
   final String appUrl =
       "https://play.google.com/store/apps/details?id=com.example.my_dictionary";
   final String moreAppsUrl =
@@ -22,10 +24,7 @@ class CustomDrawer extends StatelessWidget {
     }
   }
 
-  // void _shareApp() {
-  //   Share.share("Check out My Dictionary App: $appUrl");
-  // }
-
+  
   void _exitApp(BuildContext context) {
     showDialog(
       context: context,
@@ -51,10 +50,11 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: AppColors.primaryBackGround,
       child: Column(
         children: <Widget>[
           DrawerHeader(
-            decoration: const BoxDecoration(color: Colors.blue),
+            decoration:  BoxDecoration(color: AppColors.secondary  ),
             margin: EdgeInsets.zero,
             padding: EdgeInsets.zero,
             child: Center(
@@ -63,20 +63,19 @@ class CustomDrawer extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 40,
-                    backgroundImage: AssetImage('assets/images/icon.png'),
+                    backgroundImage: AssetImage('assets/images/app_logo.png'),
                   ),
-                  const SizedBox(height: 10),
-                  const Text(
-                    'My Dictionary',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  SizedBox(height: 10.h),
+                  CustomText(
+                    text: 'Word Mate',
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
                   ),
-                  const Text(
-                    'Build your vocabulary!',
-                    style: TextStyle(color: Colors.white, fontSize: 14),
+                  CustomText(
+                    text: 'My Personal Dictionary',
+                    color: Colors.white,
+                    fontSize: 14,
                   ),
                 ],
               ),
@@ -109,12 +108,6 @@ class CustomDrawer extends StatelessWidget {
             onTap: () => _launchURL(moreAppsUrl),
           ),
 
-          // _buildDrawerItem(
-          //   icon: Icons.share,
-          //   text: "Share App",
-          //   onTap: _shareApp,
-          // ),
-
           const Divider(),
 
           _buildDrawerItem(
@@ -136,7 +129,7 @@ class CustomDrawer extends StatelessWidget {
   }) {
     return ListTile(
       leading: Icon(icon, color: color),
-      title: Text(text, style: TextStyle(color: color)),
+      title: CustomText(text: text, color: color),
       onTap: onTap,
     );
   }

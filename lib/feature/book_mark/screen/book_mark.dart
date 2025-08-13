@@ -1,46 +1,77 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_dictionary/core/utils/common_widget/custom_text.dart';
+import 'package:my_dictionary/core/utils/constent/app_color.dart';
+import 'package:my_dictionary/core/utils/constent/app_sizer.dart';
 import 'package:my_dictionary/feature/book_mark/controller/book_mark_controller.dart';
-
 
 class FavoritesScreen extends StatelessWidget {
   FavoritesScreen({super.key});
 
-  final FavoritesController controller =
-      Get.put(FavoritesController(), permanent: true);
+  final FavoritesController controller = Get.put(
+    FavoritesController(),
+    permanent: true,
+  );
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      if (controller.favoriteWords.isEmpty) {
-        return const Center(child: Text("No favorite words to display."));
-      }
+    return Scaffold(
+      body: SafeArea(
+        child: Obx(() {
+          if (controller.favoriteWords.isEmpty) {
+            return Center(
+              child: CustomText(text: "No favorite words to display."),
+            );
+          }
 
-      return ListView.builder(
-        itemCount: controller.favoriteWords.length,
-        itemBuilder: (context, index) {
-          final word = controller.favoriteWords[index];
-          return Card(
-            margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            child: ListTile(
-              title: Text("${word.text} = ${word.bangla}"),
-              trailing: PopupMenuButton<String>(
-                onSelected: (value) {
-                  if (value == 'delete') {
-                    controller.deleteWord(word);
-                  } else if (value == 'favorite') {
-                    controller.toggleFavorite(word);
-                  }
-                },
-                itemBuilder: (context) => const [
-                  PopupMenuItem(value: 'delete', child: Text('Delete')),
-                  PopupMenuItem(value: 'favorite', child: Text('Unfavorite')),
-                ],
-              ),
+          return SingleChildScrollView(
+            padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
+            child: Column(
+              children: controller.favoriteWords.map((word) {
+                return Container(
+                  margin: EdgeInsets.symmetric(vertical: 5.h),
+                  padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey, width: 1),
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white,
+                  
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: CustomText(
+                          text: "${word.text} = ${word.bangla}",
+                        ),
+                      ),
+                      PopupMenuButton<String>(
+                        color: AppColors.primaryBackGround,
+                        onSelected: (value) {
+                          if (value == 'delete') {
+                            controller.deleteWord(word);
+                          } else if (value == 'favorite') {
+                            controller.toggleFavorite(word);
+                          }
+                        },
+                        itemBuilder: (context) => const [
+                          PopupMenuItem(
+                            value: 'delete',
+                            child: CustomText(text: 'Delete'),
+                          ),
+                          PopupMenuItem(
+                            value: 'favorite',
+                            child: CustomText(text: 'Unfavorite'),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              }).toList(),
             ),
           );
-        },
-      );
-    });
+        }),
+      ),
+    );
   }
 }

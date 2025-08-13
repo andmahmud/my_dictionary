@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'word.dart';
-import 'word_storage_service.dart';
+import 'package:my_dictionary/core/network_coller/word_controller.dart';
+import 'package:my_dictionary/core/network_coller/word_model.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'word.dart';
-import 'word_storage_service.dart';
+import 'package:my_dictionary/core/network_coller/word_controller.dart';
+import 'package:my_dictionary/core/network_coller/word_model.dart';
+
 
 class FavoritesScreen extends StatefulWidget {
   final List<Word> favoriteWords;
@@ -38,20 +39,20 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     return Scaffold(
       body:
           widget.favoriteWords.isEmpty
-              ? const Center(child: Text("No favorite words to display."))
+              ?  Center(child: Text("No favorite words to display."))
               : ListView.builder(
                 itemCount: widget.favoriteWords.length,
                 itemBuilder: (context, index) {
                   final word = widget.favoriteWords[index];
                   return Card(
-                    margin: const EdgeInsets.symmetric(
+                    margin:  EdgeInsets.symmetric(
                       horizontal: 12,
                       vertical: 6,
                     ),
                     child: ListTile(
                       title: Text(
                         "${word.text} = ${word.bangla}",
-                      ), // Corrected to use 'text' instead of 'english'
+                      ), 
                       trailing: PopupMenuButton<String>(
                         onSelected: (value) {
                           if (value == 'delete') {

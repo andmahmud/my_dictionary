@@ -1,6 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
-import 'word.dart';
+import 'word_model.dart';
 
 class WordStorageService {
   static const _key = 'words';

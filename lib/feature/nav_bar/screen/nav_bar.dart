@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:my_dictionary/Favorite.dart';
+import 'package:my_dictionary/core/network_coller/word_controller.dart';
+import 'package:my_dictionary/core/network_coller/word_model.dart';
+import 'package:my_dictionary/feature/book_mark/screen/book_mark.dart';
 import 'package:my_dictionary/drawer.dart';
-import 'package:my_dictionary/homepage.dart';
-
-import 'package:my_dictionary/word_storage_service.dart';
-import 'package:my_dictionary/word.dart';
+import 'package:my_dictionary/feature/home/screen/home_screen.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -34,7 +33,7 @@ class _HomescreenState extends State<Homepage> {
 
   void _onItemTapped(int index) async {
     if (index == 1) {
-      await loadFavoriteWords(); // Refresh when going to Favorites
+      await loadFavoriteWords(); 
     }
 
     setState(() {

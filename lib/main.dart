@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_dictionary/Navbar.dart';
+import 'package:my_dictionary/feature/nav_bar/screen/nav_bar.dart';
 
 void main() {
   runApp(const MyApp());

@@ -10,7 +10,8 @@ import 'package:my_dictionary/feature/home/screen/home_screen.dart';
 import 'package:my_dictionary/feature/nav_bar/controller/nav_bar_controller.dart';
 
 class NavBar extends StatelessWidget {
-   NavBar({super.key});
+  NavBar({super.key});
+
   final homecontroller = Get.put(HomeController());
 
   @override
@@ -34,37 +35,79 @@ class NavBar extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
           backgroundColor: AppColors.secondary,
-          foregroundColor: Colors.white, 
-          iconTheme: const IconThemeData(
-            color: Colors.white,
-          ), // Drawer menu icon
+          foregroundColor: Colors.white,
+          iconTheme: const IconThemeData(color: Colors.white),
         ),
         drawer: CustomDrawer(),
         body: pages[controller.selectedIndex.value],
-        bottomNavigationBar: BottomNavigationBar(
-          items:  [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Word Mate'),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.bookmark_outlined),
-              label: 'Bookmarks',
+        bottomNavigationBar: BottomAppBar(
+          shape: const CircularNotchedRectangle(),
+          notchMargin: 8,
+          color: AppColors.secondary,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // Home button
+                GestureDetector(
+                  onTap: () => controller.onItemTapped(0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.home,
+                        color:
+                            controller.selectedIndex.value == 0
+                                ? Colors.white
+                                : Colors.black,
+                      ),
+                      CustomText(
+                        text: 'Word Mate',
+
+                        color:
+                            controller.selectedIndex.value == 0
+                                ? Colors.white
+                                : Colors.black,
+                        fontSize: 12.sp,
+                      ),
+                    ],
+                  ),
+                ),
+                // Bookmark button
+                GestureDetector(
+                  onTap: () => controller.onItemTapped(1),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.bookmark_outlined,
+                        color:
+                            controller.selectedIndex.value == 1
+                                ? Colors.white
+                                : Colors.black,
+                      ),
+                      CustomText(
+                        text: 'Bookmarks',
+                        color:
+                            controller.selectedIndex.value == 1
+                                ? Colors.white
+                                : Colors.black,
+                        fontSize: 12.sp,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ],
-          currentIndex: controller.selectedIndex.value,
-          selectedItemColor: Colors.white,
-          unselectedItemColor: Colors.black,
-          backgroundColor: AppColors.secondary,
-          onTap: controller.onItemTapped,
+          ),
         ),
-     floatingActionButton: controller.selectedIndex.value == 0
-    ? FloatingActionButton(
-        onPressed: () => homecontroller.addOrEditWord(),
-        backgroundColor: AppColors.textFormFieldBorder,
-        shape: CircleBorder(),
-        child:  Icon(Icons.add, color: Colors.black, size: 30.sp), // Adjust icon size
-      )
-    : null,
-
-
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => homecontroller.addOrEditWord(),
+          backgroundColor: AppColors.textFormFieldBorder,
+          shape: const CircleBorder(),
+          child: Icon(Icons.add, color: Colors.black, size: 30.sp),
+        ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       ),
     );

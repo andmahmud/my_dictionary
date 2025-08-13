@@ -1,82 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:my_dictionary/core/network_coller/word_controller.dart';
-import 'package:my_dictionary/core/network_coller/word_model.dart';
+import 'package:get/get.dart';
+import 'package:my_dictionary/feature/book_mark/controller/book_mark_controller.dart';
 
 
-class FavoritesScreen extends StatefulWidget {
-  final List<Word> favoriteWords;
+class FavoritesScreen extends StatelessWidget {
+  FavoritesScreen({super.key});
 
-  const FavoritesScreen({super.key, required this.favoriteWords});
-
-  @override
-  State<FavoritesScreen> createState() => _FavoritesScreenState();
-}
-
-class _FavoritesScreenState extends State<FavoritesScreen> {
-  final storageService = WordStorageService();
-
-  Future<void> saveWords() async {
-    await storageService.saveWords(widget.favoriteWords);
-  }
-
-  void toggleFavorite(int index) {
-    setState(() {
-      widget.favoriteWords[index].isFavorite =
-          !widget.favoriteWords[index].isFavorite;
-    });
-    saveWords();
-  }
-
-  void deleteWord(int index) {
-    setState(() {
-      widget.favoriteWords.removeAt(index);
-    });
-    saveWords();
-  }
+  final FavoritesController controller =
+      Get.put(FavoritesController(), permanent: true);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body:
-          widget.favoriteWords.isEmpty
-              ?  Center(child: Text("No favorite words to display."))
-              : ListView.builder(
-                itemCount: widget.favoriteWords.length,
-                itemBuilder: (context, index) {
-                  final word = widget.favoriteWords[index];
-                  return Card(
-                    margin:  EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 6,
-                    ),
-                    child: ListTile(
-                      title: Text(
-                        "${word.text} = ${word.bangla}",
-                      ), 
-                      trailing: PopupMenuButton<String>(
-                        onSelected: (value) {
-                          if (value == 'delete') {
-                            deleteWord(index);
-                          } else if (value == 'favorite') {
-                            toggleFavorite(index);
-                          }
-                        },
-                        itemBuilder:
-                            (BuildContext context) => [
-                              const PopupMenuItem(
-                                value: 'delete',
-                                child: Text('Delete'),
-                              ),
-                              const PopupMenuItem(
-                                value: 'favorite',
-                                child: Text('Unfavorite'),
-                              ),
-                            ],
-                      ),
-                    ),
-                  );
+    return Obx(() {
+      if (controller.favoriteWords.isEmpty) {
+        return const Center(child: Text("No favorite words to display."));
+      }
+
+      return ListView.builder(
+        itemCount: controller.favoriteWords.length,
+        itemBuilder: (context, index) {
+          final word = controller.favoriteWords[index];
+          return Card(
+            margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            child: ListTile(
+              title: Text("${word.text} = ${word.bangla}"),
+              trailing: PopupMenuButton<String>(
+                onSelected: (value) {
+                  if (value == 'delete') {
+                    controller.deleteWord(word);
+                  } else if (value == 'favorite') {
+                    controller.toggleFavorite(word);
+                  }
                 },
+                itemBuilder: (context) => const [
+                  PopupMenuItem(value: 'delete', child: Text('Delete')),
+                  PopupMenuItem(value: 'favorite', child: Text('Unfavorite')),
+                ],
               ),
-    );
+            ),
+          );
+        },
+      );
+    });
   }
 }

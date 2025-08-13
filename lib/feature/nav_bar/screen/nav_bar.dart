@@ -1,77 +1,56 @@
 import 'package:flutter/material.dart';
-import 'package:my_dictionary/core/network_coller/word_controller.dart';
-import 'package:my_dictionary/core/network_coller/word_model.dart';
-import 'package:my_dictionary/feature/book_mark/screen/book_mark.dart';
+import 'package:get/get.dart';
+import 'package:my_dictionary/core/utils/common_widget/custom_text.dart';
+import 'package:my_dictionary/core/utils/constent/app_color.dart';
+import 'package:my_dictionary/core/utils/constent/app_sizer.dart';
 import 'package:my_dictionary/drawer.dart';
+import 'package:my_dictionary/feature/book_mark/screen/book_mark.dart';
 import 'package:my_dictionary/feature/home/screen/home_screen.dart';
+import 'package:my_dictionary/feature/nav_bar/controller/nav_bar_controller.dart';
 
-class Homepage extends StatefulWidget {
-  const Homepage({super.key});
-
-  @override
-  State<Homepage> createState() => _HomescreenState();
-}
-
-class _HomescreenState extends State<Homepage> {
-  int _selectedIndex = 0;
-  List<Word> _favoriteWords = [];
-
-  final storageService = WordStorageService();
-
-  @override
-  void initState() {
-    super.initState();
-    loadFavoriteWords();
-  }
-
-  Future<void> loadFavoriteWords() async {
-    final allWords = await storageService.loadWords();
-    setState(() {
-      _favoriteWords = allWords.where((word) => word.isFavorite).toList();
-    });
-  }
-
-  void _onItemTapped(int index) async {
-    if (index == 1) {
-      await loadFavoriteWords(); 
-    }
-
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+class NavBar extends StatelessWidget {
+  const NavBar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> _pages = [
-      const HomeScreen(),
-      FavoritesScreen(favoriteWords: _favoriteWords),
-    ];
+    final NavBarController controller = Get.put(
+      NavBarController(),
+      permanent: true,
+    );
 
-    final List<String> _titles = ["My Dictionary", "Favorite Words"];
+    final List<Widget> pages = [HomeScreen(), FavoritesScreen()];
+    final List<String> titles = ["My Dictionary", "Favorite Words"];
 
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(_titles[_selectedIndex]),
-        backgroundColor: Colors.blue,
-        foregroundColor: Colors.white,
-      ),
-      drawer: const CustomDrawer(),
-      body: _pages[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Favorites',
+    return Obx(
+      () => Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: CustomText(
+            text: titles[controller.selectedIndex.value],
+            color: Colors.white,
+            fontSize: 20.sp,
+            fontWeight: FontWeight.w600,
           ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.black,
-        backgroundColor: Colors.blue,
-        onTap: _onItemTapped,
+          backgroundColor: AppColors.secondary,
+          foregroundColor: Colors.white,
+        ),
+
+        drawer: CustomDrawer(),
+        body: pages[controller.selectedIndex.value],
+        bottomNavigationBar: BottomNavigationBar(
+          items: [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.favorite),
+              label: 'Favorites',
+            ),
+          ],
+          currentIndex: controller.selectedIndex.value,
+          selectedItemColor: Colors.white,
+          unselectedItemColor: Colors.black,
+          backgroundColor: AppColors.secondary,
+          onTap: controller.onItemTapped,
+        ),
       ),
     );
   }

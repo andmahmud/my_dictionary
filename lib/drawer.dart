@@ -1,19 +1,20 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:my_dictionary/core/utils/common_widget/custom_button.dart';
 import 'package:my_dictionary/core/utils/common_widget/custom_text.dart';
 import 'package:my_dictionary/core/utils/constent/app_color.dart';
 import 'package:my_dictionary/core/utils/constent/app_sizer.dart';
-// import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'dart:io' show exit;
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
 
   final String appUrl =
-      "https://play.google.com/store/apps/details?id=com.example.my_dictionary";
+      "https://play.google.com/store/apps/dev?id=6248440650607625083";
   final String moreAppsUrl =
-      "https://play.google.com/store/apps/developer?id=YourDeveloperID";
-  final String privacyPolicyUrl = "https://your-privacy-policy-link.com";
+      "https://play.google.com/store/apps/dev?id=6248440650607625083";
+  final String privacyPolicyUrl =
+      "https://play.google.com/store/apps/dev?id=6248440650607625083";
 
   void _launchURL(String url) async {
     final Uri uri = Uri.parse(url);
@@ -24,22 +25,42 @@ class CustomDrawer extends StatelessWidget {
     }
   }
 
-  
   void _exitApp(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("Exit App"),
-          content: const Text("Are you sure you want to exit the app?"),
+          backgroundColor: AppColors.primaryBackGround,
+          title: CustomText(
+            fontSize: 18.sp,
+            fontWeight: FontWeight.w600,
+            textAlign: TextAlign.center,
+            text: "Exit App",
+          ),
+          content: CustomText(
+            fontSize: 12.sp,
+            text: "Are you sure you want to exit the app?",
+          ),
           actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text("Cancel"),
-            ),
-            TextButton(
-              onPressed: () => exit(0),
-              child: const Text("Exit", style: TextStyle(color: Colors.red)),
+            Row(
+              children: [
+                Expanded(
+                  child: CustomButton(
+                    onTap: () => Navigator.of(context).pop(),
+                    text: "Cancel",
+                    color: AppColors.secondary,
+                  ),
+                ),
+                SizedBox(width: 10.w),
+                Expanded(
+                  child: CustomButton(
+                    onTap: () => exit(0),
+                    text: "Exit",
+
+                    color: AppColors.primary,
+                  ),
+                ),
+              ],
             ),
           ],
         );
@@ -54,7 +75,7 @@ class CustomDrawer extends StatelessWidget {
       child: Column(
         children: <Widget>[
           DrawerHeader(
-            decoration:  BoxDecoration(color: AppColors.secondary  ),
+            decoration: BoxDecoration(color: AppColors.secondary),
             margin: EdgeInsets.zero,
             padding: EdgeInsets.zero,
             child: Center(
@@ -112,7 +133,7 @@ class CustomDrawer extends StatelessWidget {
 
           _buildDrawerItem(
             icon: Icons.exit_to_app,
-            text: "Exit",
+            text: "Exit App",
             onTap: () => _exitApp(context),
             color: Colors.red,
           ),
@@ -129,7 +150,12 @@ class CustomDrawer extends StatelessWidget {
   }) {
     return ListTile(
       leading: Icon(icon, color: color),
-      title: CustomText(text: text, color: color),
+      title: CustomText(
+        text: text,
+        color: color,
+        fontSize: 14.sp,
+        fontWeight: FontWeight.w500,
+      ),
       onTap: onTap,
     );
   }

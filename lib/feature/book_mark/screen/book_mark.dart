@@ -27,47 +27,45 @@ class FavoritesScreen extends StatelessWidget {
           return SingleChildScrollView(
             padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
             child: Column(
-              children: controller.favoriteWords.map((word) {
-                return Container(
-                  margin: EdgeInsets.symmetric(vertical: 5.h),
-                  padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey, width: 1),
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white,
-                  
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: CustomText(
-                          text: "${word.text} = ${word.bangla}",
-                        ),
+              children:
+                  controller.favoriteWords.map((word) {
+                    return Container(
+                      margin: EdgeInsets.symmetric(vertical: 5.h),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 10.w,
+                        vertical: 5.h,
                       ),
-                      PopupMenuButton<String>(
-                        color: AppColors.primaryBackGround,
-                        onSelected: (value) {
-                          if (value == 'delete') {
-                            controller.deleteWord(word);
-                          } else if (value == 'favorite') {
-                            controller.toggleFavorite(word);
-                          }
-                        },
-                        itemBuilder: (context) => const [
-                          PopupMenuItem(
-                            value: 'delete',
-                            child: CustomText(text: 'Delete'),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey, width: 1),
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: CustomText(
+                              text: "${word.text} = ${word.bangla}",
+                            ),
                           ),
-                          PopupMenuItem(
-                            value: 'favorite',
-                            child: CustomText(text: 'Unfavorite'),
+                          PopupMenuButton<String>(
+                            color: AppColors.primaryBackGround,
+                            onSelected: (value) {
+                              if (value == 'favorite') {
+                                controller.toggleFavorite(word);
+                              }
+                            },
+                            itemBuilder:
+                                (context) => const [
+                                  PopupMenuItem(
+                                    value: 'favorite',
+                                    child: CustomText(text: 'Unbookmark'),
+                                  ),
+                                ],
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                );
-              }).toList(),
+                    );
+                  }).toList(),
             ),
           );
         }),
